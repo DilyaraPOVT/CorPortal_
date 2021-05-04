@@ -1,0 +1,43 @@
+﻿
+@{
+    ViewData["Title"] = "Рейтинг";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script src="https://cdn.anychart.com/releases/8.9.0/js/anychart-base.min.js" type="text/javascript"></script>
+
+<div class="container" id="chart" style="width: 700px; height: 500px;"></div>
+<script>
+    anychart.onDocumentReady(function () {
+
+        // create data
+        data = [
+            ["Иванов И.И.", 1],
+            ["Ульянов А.М.", 3],
+            ["Тихонова М.Р.", 1],
+            ["Любимова Р.Д.", 2],
+            ["Шефер А.А.", 3]
+        ];
+
+        // create a data set
+        var dataSet = anychart.data.set(data);
+
+        // map the data
+        var mapping = dataSet.mapAs({ x: 0, value: 1 });
+
+        // create a chart
+        var chart = anychart.column();
+
+        // create a series and set the data
+        var series = chart.column(mapping);
+
+        // set the chart title
+        chart.title("Прогресс начинающих специалистов в компании");
+
+        // set the container id
+        chart.container("chart");
+
+        // initiate drawing the chart
+        chart.draw();
+    });
+</script>

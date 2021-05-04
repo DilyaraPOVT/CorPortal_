@@ -1,0 +1,38 @@
+﻿@{
+    Layout = null;
+}
+
+@using (Html.BeginForm("Graduate", "Chat", FormMethod.Post, new { onsubmit = "return SubmitForm(this)" }))
+{
+    <div>
+        <a> У вас N дней отпуска</a>
+    </div>
+    <footer class="border-top footer">
+        <div>
+            <a class="btn btn-info" style="margin-bottom:5px" onclick="PopupForm('@Url.Action("Graduate","Chat")')"> Отпуск</a>
+            <a class="btn btn-info" style="margin-bottom:5px" onclick="PopupForm('@Url.Action("Money", "Chat")')"> ЗП</a>
+        </div>
+    </footer>
+}
+
+<script>
+    //Форма открывается при нажатии кнопки "Добавить" или "Изменить"
+    function PopupForm(url) {
+        var formDiv = $('<div/>');
+        $.get(url)
+            .done(function (response) {
+                formDiv.html(response);
+
+                Popup = formDiv.dialog({
+                    autoOpen: true,
+                    resizable: false,
+                    title: 'Бот',
+                    height: 400,
+                    width: 300,
+                    close: function () {
+                        Popup.dialog('destroy').remove();
+                    }
+                });
+            });
+    }
+</script>
